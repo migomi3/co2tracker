@@ -7,13 +7,15 @@ services:
     restart: always
     environment:
       - DJANGO_SECRET_KEY=local
+      - UV_PROJECT_ENVIRONMENT=/app/.venv
     build: ./
     command: >
-      bash -c "python3 wait_for_postgres.py &&
-               ./manage.py migrate &&
-               ./manage.py runserver 0.0.0.0:8000"
+      bash -c "uv run wait_for_postgres.py &&
+               uv run manage.py migrate &&
+               uv run manage.py runserver 0.0.0.0:8000"
     volumes:
-      - ./:/code
+      - ./:/app
+      - /app/.venv  # Exclude .venv from volume mount
     ports:
       - "8000:8000"
     depends_on:
@@ -21,8 +23,9 @@ services:
   documentation:
     restart: always
     build: ./
-    command: "python3 -m mkdocs serve"
+    command: "uv run -m mkdocs serve"
     volumes:
       - ./:/code
+      - /code/.venv  # Exclude .venv from volume mount
     ports:
       - "8001:8001"

@@ -23,6 +23,7 @@ class Common(Configuration):
 
         # Your apps
         'co2tracker.users',
+        'activities',
 
     )
 

@@ -6,9 +6,12 @@ from django.views.generic.base import RedirectView
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
 from .users.views import UserViewSet
+from activities.views import ActivityViewSet, ActivityLogViewSet
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
+router.register(r'activities', ActivityViewSet, basename='activity')
+router.register(r'activity-logs', ActivityLogViewSet, basename='activity-log')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
