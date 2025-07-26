@@ -1,5 +1,5 @@
-FROM python:3.13-slim as base
-FROM base as builder
+FROM python:3.13-slim AS base
+FROM base AS builder
 
 # Allows docker to cache installed dependencies between builds
 RUN apt-get update && apt-get -y install libpq-dev gcc
@@ -21,7 +21,7 @@ RUN --mount=type=cache,target=/root/.cache \
     --frozen \
     --no-install-project
 
-FROM base as runtime
+FROM base AS runtime
 # Copy uv binary to runtime stage
 COPY --from=ghcr.io/astral-sh/uv:0.6.17 /uv /uvx /bin/
 
