@@ -22,7 +22,7 @@ class ActivityViewSet(viewsets.ModelViewSet):
         This view should return a list of all activities
         for the currently authenticated user.
         """
-        return Activity.objects.filter(user=self.request.user)
+        return super().get_queryset().filter(user=self.request.user)
     
     def perform_create(self, serializer):
         """
@@ -48,4 +48,4 @@ class ActivityLogViewSet(viewsets.ModelViewSet):
         This view should return a list of all activity logs
         for the currently authenticated user's activities.
         """
-        return ActivityLog.objects.filter(activity__user=self.request.user)
+        return super().get_queryset().filter(activity__user=self.request.user)
