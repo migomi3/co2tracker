@@ -1,0 +1,3 @@
+[submodule "react-pwa"]
+	path = react-pwa
+	url = https://github.com/suren-atoyan/react-pwa.git
